@@ -13,7 +13,7 @@ if(!empty($_SESSION['admin'])){
 
   //admin login
  if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['loginForm'])){
-
+  
   if(empty($_POST["username"]) || empty($_POST["password"]))
   {
     $msg .= "<div id='login_error'> <strong>Error</strong>: Both field can't be empty!!</div>";
@@ -55,9 +55,10 @@ if(!empty($_SESSION['admin'])){
       }
       else
       {   
-      
+        
         $_SESSION['admin']         = $row;
         $_SESSION['aId']           = $_SESSION['admin']['aId'];
+        $_SESSION['user_id']       = $_SESSION['admin']['user_id'];
         $_SESSION['username']      = $_SESSION['admin']['username'];
         $_SESSION['email']         = $_SESSION['admin']['email'];
         $_SESSION['mobile']        = $_SESSION['admin']['mobile'];

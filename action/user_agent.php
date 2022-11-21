@@ -42,13 +42,13 @@ if (!empty($reffid)) {
 		$refferal2 = $data['lvl_rf_id1'];
 		$refferal3 = $data['lvl_rf_id2'];
 	}
-		$result =$userDataInput->insert_data('tbl_member',['referral_code'=>"None", 'lvl_rf_id1'=>$rfid, 'lvl_rf_id2'=>$refferal2, 'lvl_rf_id3'=>$refferal3, 'member_name'=>$fname, 'gender'=>"None", 'birthday'=>"None", 'nationality'=>"None", 'city'=>"None", 'phone'=>"None", 'balance'=>0, 'address'=>"None", 'photo'=>"None", 'nid_front'=>"None", 'nid_back'=>"None", 'joinDate'=>$date, 'joinTime'=>$time, 'timestamp1'=>$timestamp, 'status'=>"active"]);
+		//$result =$userDataInput->insert_data('tbl_member',['referral_code'=>"None", 'lvl_rf_id1'=>$rfid, 'lvl_rf_id2'=>$refferal2, 'lvl_rf_id3'=>$refferal3, 'member_name'=>$fname, 'gender'=>"None", 'birthday'=>"None", 'nationality'=>"None", 'city'=>"None", 'phone'=>"None", 'balance'=>0, 'address'=>"None", 'photo'=>"None", 'nid_front'=>"None", 'nid_back'=>"None", 'joinDate'=>$date, 'joinTime'=>$time, 'timestamp1'=>$timestamp, 'status'=>"active"]);
 
 		// echo $result;
 		$letter= "refferel_code";
 		$lastid= $result;
 		$updaterefCode = $letter.$lastid;
-		$userDataInput->table_update('tbl_member',['referral_code'=>$updaterefCode], "mId='$lastid'");
+		//$userDataInput->table_update('tbl_member',['referral_code'=>$updaterefCode], "mId='$lastid'");
 
 		$userDataInput->insert_data('tbl_admin',['user_id'=>$lastid, 'agent_id'=>$agent_id, 'username'=>$username, 'email'=>$email, 'joinDate'=>$date, 'joinTime'=>$time, 'timestamp1'=>$timestamp, 'password'=>$password, 'salt'=>$salt, 'role'=>"agent", 'verify_status'=>"Y", 'verify_code'=>0, 'forgotPasswordCode'=>0, 'ip'=>0, 'status'=>1, 'last_update'=>$date, 'author'=>0,'approved'=>0]);
         $data_agent = $userDataInput->insert_data('tbl_agent',$data);
@@ -58,13 +58,13 @@ if (!empty($reffid)) {
 else{
 	// if refferal code is  empty
 
-		$result =$userDataInput->insert_data('tbl_member',['referral_code'=>"None", 'lvl_rf_id1'=>$defultRef, 'lvl_rf_id2'=>$defultRef, 'lvl_rf_id3'=>$defultRef, 'member_name'=>$fname, 'gender'=>"None", 'birthday'=>"None", 'nationality'=>"None", 'city'=>"None", 'phone'=>"None", 'balance'=>0, 'address'=>"None", 'photo'=>"None", 'nid_front'=>"None", 'nid_back'=>"None", 'joinDate'=>$date, 'joinTime'=>$time, 'timestamp1'=>$timestamp, 'status'=>"active"]);
+		//$result =$userDataInput->insert_data('tbl_member',['referral_code'=>"None", 'lvl_rf_id1'=>$defultRef, 'lvl_rf_id2'=>$defultRef, 'lvl_rf_id3'=>$defultRef, 'member_name'=>$fname, 'gender'=>"None", 'birthday'=>"None", 'nationality'=>"None", 'city'=>"None", 'phone'=>"None", 'balance'=>0, 'address'=>"None", 'photo'=>"None", 'nid_front'=>"None", 'nid_back'=>"None", 'joinDate'=>$date, 'joinTime'=>$time, 'timestamp1'=>$timestamp, 'status'=>"active"]);
 
 		// echo $result;
 		$letter= "refferel_code";
 		$lastid= $result;
 		$updaterefCode = $letter.$lastid;
-		$userDataInput->table_update('tbl_member',['referral_code'=>$updaterefCode], "mId='$lastid'");
+		//$userDataInput->table_update('tbl_member',['referral_code'=>$updaterefCode], "mId='$lastid'");
 
 		$userDataInput->insert_data('tbl_admin',['user_id'=>$lastid, 'agent_id'=>$agent_id, 'username'=>$username, 'email'=>$email, 'joinDate'=>$date, 'joinTime'=>$time, 'timestamp1'=>$timestamp, 'password'=>$password, 'salt'=>$salt, 'role'=>"agent", 'verify_status'=>"Y", 'verify_code'=>0, 'forgotPasswordCode'=>0, 'ip'=>0, 'status'=>1, 'last_update'=>$date, 'author'=>0, 'approved'=>0]);
 		header("Location: http://localhost/etechzn.com/login.php"); 
