@@ -264,32 +264,45 @@
                 </div>
               </div>
               <div class="col-md-8 grid-margin stretch-card">
+                
                 <div class="card">
+                      <div class="text-right m-3">
+                          <a href="all_bet.php" class="btn btn-success"> View All </a>
+                        </div>
                   <div class="card-body">
                     <div class="d-flex flex-row justify-content-between">
+                       
                       <h4 class="card-title mb-1">Open Bets</h4>
                       <p class="text-muted mb-1">Your data status</p>
                     </div>
                     <div class="row">
                       <div class="col-12">
                         <div class="preview-list">
-                          <div class="preview-item border-bottom">
-                            <div class="preview-thumbnail">
-                              <div class="preview-icon bg-primary">
-                                <i class="mdi mdi-file-document"></i>
+                         
+                        <?php $all_bet =  $getData->query("SELECT * From tbl_bet order BY id DESC limit 5");
+                              foreach($all_bet as $bet):
+                            ?>
+                            
+                            <div class="preview-item border-bottom">
+                              <div class="preview-thumbnail">
+                                <div class="preview-icon bg-primary">
+                                  <i class="mdi mdi-file-document"></i>
+                                </div>
+                              </div>
+                              
+                              <div class="preview-item-content d-sm-flex flex-grow">
+                                <div class="flex-grow">
+                                  <h6 class="preview-subject"><?= $getData->getCountry($bet['country1st_id'],'name')['name'] ?> VS <?= $getData->getCountry($bet['country2nd_id'],'name')['name'] ?></h6>
+                                  <p class="text-muted mb-0">Date <?= date('m-d-yy',strtotime($bet['start_time'])) ?></p>
+                                </div>
+                                <div class="me-auto text-sm-right pt-2 pt-sm-0">
+                                  <p class="text-muted">15 minutes ago</p>
+                                  <p class="text-muted mb-0">30 tasks, 5 issues </p>
+                                </div>
                               </div>
                             </div>
-                            <div class="preview-item-content d-sm-flex flex-grow">
-                              <div class="flex-grow">
-                                <h6 class="preview-subject">BAN VS PAK</h6>
-                                <p class="text-muted mb-0">Date 21-30-2022</p>
-                              </div>
-                              <div class="me-auto text-sm-right pt-2 pt-sm-0">
-                                <p class="text-muted">15 minutes ago</p>
-                                <p class="text-muted mb-0">30 tasks, 5 issues </p>
-                              </div>
-                            </div>
-                          </div>
+                          
+                          <?php endforeach  ?>
                           <div class="preview-item border-bottom">
                             <div class="preview-thumbnail">
                               <div class="preview-icon bg-success">
