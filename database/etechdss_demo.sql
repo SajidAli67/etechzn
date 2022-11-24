@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2022 at 10:36 AM
+-- Generation Time: Nov 24, 2022 at 09:28 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -84,6 +84,28 @@ INSERT INTO `bet_category` (`id`, `cat_name`, `status`) VALUES
 (1, 'Football', 1),
 (2, 'Cricket', 1),
 (3, 'Cricket', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bet_user_history`
+--
+
+CREATE TABLE `bet_user_history` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `bet_id` int(11) NOT NULL,
+  `country_select_id` int(11) NOT NULL,
+  `play_status` varchar(100) NOT NULL,
+  `win_loss_amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bet_user_history`
+--
+
+INSERT INTO `bet_user_history` (`id`, `user_id`, `bet_id`, `country_select_id`, `play_status`, `win_loss_amount`) VALUES
+(3, 1118, 2, 4, 'padding', 0);
 
 -- --------------------------------------------------------
 
@@ -343,7 +365,7 @@ CREATE TABLE `tbl_bet` (
 --
 
 INSERT INTO `tbl_bet` (`id`, `cat_id`, `country1st_id`, `interest_1st`, `country2nd_id`, `interest_2nd`, `start_time`, `end_time`, `win_status`, `status`) VALUES
-(1, 2, 1, 75, 2, 50, '2022-10-30 10:15:32', '2022-10-30 10:15:32', 'pending', 1),
+(1, 2, 4, 75, 3, 50, '2022-10-30 10:15:32', '2022-10-30 10:15:32', 'pending', 1),
 (2, 2, 4, 50, 3, 60, '2022-11-17', '2022-11-22', 'padding', 1);
 
 -- --------------------------------------------------------
@@ -373,7 +395,9 @@ INSERT INTO `tbl_chat` (`id`, `message`, `sender_id`, `reciver_id`, `img`, `view
 (31, 'Hello\r\n', 44, 1, '', 0, '2022-11-17 12:28:36'),
 (32, 'Test ', 44, 2, '', 0, '2022-11-17 12:29:28'),
 (33, '', 44, 2, '1865687632.jpg', 0, '2022-11-17 12:29:48'),
-(34, 'hello', 2, 44, '', 0, '2022-11-17 14:53:42');
+(34, 'hello', 2, 44, '', 1, '2022-11-17 14:53:42'),
+(35, 'hi admin I am effect', 44, 0, '', 1, '2022-11-23 19:57:06'),
+(36, 'hi effect I am admin ', 0, 44, '', 1, '2022-11-23 20:11:07');
 
 -- --------------------------------------------------------
 
@@ -694,28 +718,29 @@ CREATE TABLE `tbl_member` (
   `joinDate` varchar(255) NOT NULL,
   `joinTime` varchar(255) NOT NULL,
   `timestamp1` varchar(255) NOT NULL,
-  `status` varchar(11) NOT NULL
+  `status` varchar(11) NOT NULL,
+  `verify` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_member`
 --
 
-INSERT INTO `tbl_member` (`mId`, `referral_code`, `lvl_rf_id1`, `lvl_rf_id2`, `lvl_rf_id3`, `member_name`, `gender`, `birthday`, `nationality`, `city`, `phone`, `balance`, `address`, `photo`, `nid_front`, `nid_back`, `joinDate`, `joinTime`, `timestamp1`, `status`) VALUES
-(1094, 'refferel_code1094', 1094, 1094, 1094, 'agadgadg', 'None', 'None', 'None', 'None', 'None', 67.34, 'None', 'None', 'None', 'None', '2022-10-19', '20:57:57', '2022-10-19 20:57:57', '0'),
-(1097, 'refferel_code1097', 1094, 1094, 1094, 'Effety', 'None', 'None', 'None', 'None', 'None', 24.35, 'None', 'None', 'None', 'None', '2022-10-19', '20:58:49', '2022-10-19 20:58:49', '0'),
-(1112, 'refferel_code1112', 1097, 1093, 1095, 'Saira Riaz', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-19', '23:10:30', '2022-10-19 23:10:30', '0'),
-(1113, 'refferel_code1113', 1094, 1094, 1094, 'agadgadg', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-19', '23:58:59', '2022-10-19 23:58:59', 'active'),
-(1114, 'refferel_code1114', 1094, 1094, 1094, '', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-20', '00:50:38', '2022-10-20 00:50:38', 'active'),
-(1115, 'refferel_code1115', 1097, 1093, 1095, 'Asadduzaman', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-20', '00:55:45', '2022-10-20 00:55:45', 'active'),
-(1116, 'refferel_code1116', 1097, 1093, 1095, 'sdgsd dsgsg', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-20', '01:13:32', '2022-10-20 01:13:32', 'active'),
-(1117, 'refferel_code1117', 1094, 1094, 1094, 'Saira Riaz', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-21', '18:33:23', '2022-10-21 18:33:23', 'active'),
-(1118, 'refferel_code1118', 1097, 1094, 1094, 'Muzammel Hossain', 'None', 'None', 'None', 'None', 'None', 4990, 'None', 'None', 'None', 'None', '2022-10-21', '19:42:01', '2022-10-21 19:42:01', 'active'),
-(1119, 'refferel_code1119', 1094, 1094, 1094, 'effety', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-27', '04:44:44', '2022-10-27 04:44:44', 'active'),
-(1120, 'refferel_code1120', 1094, 1094, 1094, 'Turzo', 'None', 'None', 'None', 'None', 'None', 886, 'None', 'None', 'None', 'None', '2022-11-09', '16:21:36', '2022-11-09 16:21:36', 'active'),
-(1123, 'refferel_code1123', 1094, 1094, 1094, 'sajid Ali', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-11-13', '21:14:44', '2022-11-13 21:14:44', 'active'),
-(1124, 'refferel_code1124', 1094, 1094, 1094, 'sajid Ali', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-11-13', '21:24:08', '2022-11-13 21:24:08', 'active'),
-(1125, 'refferel_code1125', 1094, 1094, 1094, 'Asad', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-11-13', '22:41:36', '2022-11-13 22:41:36', 'active');
+INSERT INTO `tbl_member` (`mId`, `referral_code`, `lvl_rf_id1`, `lvl_rf_id2`, `lvl_rf_id3`, `member_name`, `gender`, `birthday`, `nationality`, `city`, `phone`, `balance`, `address`, `photo`, `nid_front`, `nid_back`, `joinDate`, `joinTime`, `timestamp1`, `status`, `verify`) VALUES
+(1094, 'refferel_code1094', 1094, 1094, 1094, 'agadgadg', 'None', 'None', 'None', 'None', 'None', 67.34, 'None', 'None', 'None', 'None', '2022-10-19', '20:57:57', '2022-10-19 20:57:57', '0', 0),
+(1097, 'refferel_code1097', 1094, 1094, 1094, 'Effety', 'None', 'None', 'None', 'None', 'None', 24.35, 'None', 'None', 'None', 'None', '2022-10-19', '20:58:49', '2022-10-19 20:58:49', '0', 0),
+(1112, 'refferel_code1112', 1097, 1093, 1095, 'Saira Riaz', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-19', '23:10:30', '2022-10-19 23:10:30', '0', 0),
+(1113, 'refferel_code1113', 1094, 1094, 1094, 'agadgadg', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-19', '23:58:59', '2022-10-19 23:58:59', 'active', 0),
+(1114, 'refferel_code1114', 1094, 1094, 1094, '', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-20', '00:50:38', '2022-10-20 00:50:38', 'active', 0),
+(1115, 'refferel_code1115', 1097, 1093, 1095, 'Asadduzaman', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-20', '00:55:45', '2022-10-20 00:55:45', 'active', 0),
+(1116, 'refferel_code1116', 1097, 1093, 1095, 'sdgsd dsgsg', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-20', '01:13:32', '2022-10-20 01:13:32', 'active', 0),
+(1117, 'refferel_code1117', 1094, 1094, 1094, 'Saira Riaz', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-21', '18:33:23', '2022-10-21 18:33:23', 'active', 0),
+(1118, 'refferel_code1118', 1097, 1094, 1094, 'effect', 'on', '2022-11-11', 'pakistani', 'Charsadda', '123456', 5010, 'Islamabad # 01 Nowshera Road Charsadda', '1669278466339.png', 'None', 'None', '2022-10-21', '19:42:01', '2022-10-21 19:42:01', 'active', 1),
+(1119, 'refferel_code1119', 1094, 1094, 1094, 'effety', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-10-27', '04:44:44', '2022-10-27 04:44:44', 'active', 0),
+(1120, 'refferel_code1120', 1094, 1094, 1094, 'Turzo', 'None', 'None', 'None', 'None', 'None', 886, 'None', 'None', 'None', 'None', '2022-11-09', '16:21:36', '2022-11-09 16:21:36', 'active', 0),
+(1123, 'refferel_code1123', 1094, 1094, 1094, 'sajid Ali', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-11-13', '21:14:44', '2022-11-13 21:14:44', 'active', 0),
+(1124, 'refferel_code1124', 1094, 1094, 1094, 'sajid Ali', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-11-13', '21:24:08', '2022-11-13 21:24:08', 'active', 0),
+(1125, 'refferel_code1125', 1094, 1094, 1094, 'Asad', 'None', 'None', 'None', 'None', 'None', 0, 'None', 'None', 'None', 'None', '2022-11-13', '22:41:36', '2022-11-13 22:41:36', 'active', 0);
 
 -- --------------------------------------------------------
 
@@ -1247,6 +1272,12 @@ ALTER TABLE `bet_category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `bet_user_history`
+--
+ALTER TABLE `bet_user_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `company_info`
 --
 ALTER TABLE `company_info`
@@ -1443,6 +1474,12 @@ ALTER TABLE `bet_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `bet_user_history`
+--
+ALTER TABLE `bet_user_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `company_info`
 --
 ALTER TABLE `company_info`
@@ -1506,7 +1543,7 @@ ALTER TABLE `tbl_bet`
 -- AUTO_INCREMENT for table `tbl_chat`
 --
 ALTER TABLE `tbl_chat`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tbl_country`

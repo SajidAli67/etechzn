@@ -219,8 +219,9 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
                   <h6 class="p-3 mb-0">Messages</h6>
+                  
                   <?php 
-                    $userMessages =$getData->multipuleConditions('tbl_chat','reciver_id',$_SESSION['admin']['agent_id'],'view',0);
+                    $userMessages =$getData->multipuleConditions('tbl_chat','reciver_id',$_SESSION['admin']['aId'],'view',0);
                     
                   ?>
                   <?php

@@ -31,6 +31,7 @@ if ($_SESSION['admin']['role'] == "user" && $agent_id != 0) {
     $reciver_id = $agent_id;
     $allAgents =  $getData->query("SELECT m.member_name as name , a.aId as id FROM `tbl_member` as m INNER JOIN tbl_admin as a on a.user_id = m.mId");
 }
+ $getData->table_update('tbl_chat',array('view'=>1),'sender_id = '.$agent_id.' AND reciver_id = '.$sender_id);
 ?>
 <style>
     .dropdown-menu{
@@ -73,17 +74,12 @@ if ($_SESSION['admin']['role'] == "user" && $agent_id != 0) {
             </div>
         </div>
         <!-- Page header end -->
-
         <!-- Content wrapper start -->
         <div class="content-wrapper">
-
             <!-- Row start -->
             <div class="row gutters">
-
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
                     <div class="card m-0">
-
                         <!-- Row start -->
                         <div class="row no-gutters">
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
@@ -101,7 +97,6 @@ if ($_SESSION['admin']['role'] == "user" && $agent_id != 0) {
                                     <ul class="users">
                                         <?php
                                         foreach ($allAgents as $data) :
-
                                         ?>
                                             <a href="messanger.php?user_id=<?= $data['id'] ?>">
 
@@ -128,8 +123,12 @@ if ($_SESSION['admin']['role'] == "user" && $agent_id != 0) {
                                     <ul class="chat-box chatContainerScroll" id="data">
                                         
                                     </ul>
-                                </div>
-                                <div class="p-3">
+                                </div>                           
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                            <div class="p-5">
                                     <form id="submit_form" method="POST">
                                         <div class="row">
                                             <div class="col-10">
@@ -148,16 +147,12 @@ if ($_SESSION['admin']['role'] == "user" && $agent_id != 0) {
                                                     </div>
                                                     <button type="submit" class="btn btn-primary mt-4 mb-0" id="send"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                                 </div>
-                                                
-                                                
-                                                
-
+                            
                                             </div>
                                         </div>
                                     </form>
 
                                 </div>
-
                             </div>
                         </div>
                         <!-- Row end -->

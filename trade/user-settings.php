@@ -1,15 +1,39 @@
 <?php require_once "inc/header.php";
 if ($_SESSION['admin']['role'] == "user") :
 	$getData = new GetData();
-$user = $getData->specificItem('tbl_member','mId',$_SESSION['admin']['user_id']);
+	$user = $getData->specificItem('tbl_member', 'mId', $_SESSION['admin']['user_id']);
+	if(isset($_POST['upload'])){
+		if($user[0]['photo']!='None'){
+			unlink('../images/user/'.$user[0]['photo']);
+		}
+		$img = 	$getData->uploadImg($_FILES['profile_img'],'../images/user/');
+		$data= array(
+			'photo'=>$img
+		);
+		$update = $getData->table_update('tbl_member',$data,'mId = '.$user[0]['mId']);
+		if($update){
+			echo "<script>location.replace('user-settings.php')</script>";
+		}
+
+	}
 ?>
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="row" align="center">
 				<div class="col-md-6">
+					<img src="../images/user/<?= ($user[0]['photo']=='None'?'default.png':$user[0]['photo']) ?>" alt="" id="imgPreview" style="width: 300px; height:300px">
 					<div class="card">
-						<p>User Photo</p>
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Verify Account</button>
+						<form action="user-settings.php" method="post" enctype="multipart/form-data">
+							<div class="row no-gutters">
+								<div class="col-6">
+									<input type="file" name="profile_img" id="profile_img" class="btn btn-primary" value="Profile Photo">
+								</div>
+								<div class="col-6">
+									<input type="submit" name="upload" class="btn btn-success btn-block" value="Upload Image">
+								</div>
+							</div>
+						</form>
+						<button type="button" class="btn <?= ($user[0]['verify'] == 0) ? 'btn-danger' : 'btn-success' ?> mt-3" data-toggle="modal" data-target="#exampleModal"><?= ($user[0]['verify'] == 0) ? 'Verify Account' : 'Edit' ?></button>
 					</div>
 					<h3>User Information</h3>
 					<table class="table" align="center">
@@ -64,9 +88,11 @@ $user = $getData->specificItem('tbl_member','mId',$_SESSION['admin']['user_id'])
 							</button>
 						</div>
 						<form action="ajax-action/user_verify.php" method="POST" id="user_data">
-							<input type="text" value="<?= $_SESSION['admin']['user_id'] ?>" name="user_id">
+							<?php print_r($user[0]) ?>
+							<input type="hidden" value="<?= $_SESSION['admin']['user_id'] ?>" name="user_id">
+							<input type="text" value="<?= $user[0]['verify'] ?>" name="verify">
 
-							<div class="modal-body p-3" >
+							<div class="modal-body p-3">
 								<div class="form-group">
 									<label for="member_name">Member Name</label>
 									<input type="text" class="form-control" id="member_name" name="member_name" placeholder="Enter Member Name" value="<?= $user[0]['member_name'] ?>">
@@ -75,9 +101,9 @@ $user = $getData->specificItem('tbl_member','mId',$_SESSION['admin']['user_id'])
 								<div class="form-check">
 									<input type="radio" class="form-check-input" id="gender" name="gender" selected>
 									<label for="gender" class="form-check-label">Male</label>
-									<input type="radio" class="form-check-input" id="gender" name="gender" >
+									<input type="radio" class="form-check-input" id="gender" name="gender">
 									<label for="gender" class="form-check-label">Female</label>
-									
+
 								</div>
 
 								<div class="form-group">
@@ -87,7 +113,7 @@ $user = $getData->specificItem('tbl_member','mId',$_SESSION['admin']['user_id'])
 
 								<div class="form-group">
 									<label for="nationality">Nationality</label>
-									<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality"  value="<?= $user[0]['nationality'] ?>">
+									<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="<?= $user[0]['nationality'] ?>">
 								</div>
 								<div class="form-group">
 									<label for="city">City</label>
@@ -104,7 +130,7 @@ $user = $getData->specificItem('tbl_member','mId',$_SESSION['admin']['user_id'])
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button  type="submit" id="save" class="btn btn-primary">Save changes</button>
+								<button type="submit" id="save" class="btn btn-primary">Save changes</button>
 							</div>
 						</form>
 					</div>
@@ -114,21 +140,34 @@ $user = $getData->specificItem('tbl_member','mId',$_SESSION['admin']['user_id'])
 		<?php endif; ?>
 		<?php require_once "inc/footer.php"; ?>
 		<script>
-			$(document).ready(function(){
-				$('#save').click(function(e){
+			$(document).ready(function() {
+				$('#save').click(function(e) {
 					e.preventDefault();
 					var action = $('#user_data').attr('action');
-					var data= $('#user_data').serialize();
-					
-					$.ajax({
-                    url: action,
-                    type: 'post',
-                    data: data,
-                    success: function(data) {
-						console.log(data)
+					var data = $('#user_data').serialize();
 
-                    }
-                })
+					$.ajax({
+						url: action,
+						type: 'post',
+						data: data,
+						success: function(data) {
+							console.log(data)
+
+						}
+					})
 				})
 			})
+			$(document).ready(() => {
+				$('#profile_img').change(function() {
+					const file = this.files[0];
+					if (file) {
+						let reader = new FileReader();
+						reader.onload = function(event) {
+							console.log(event.target.result);
+							$('#imgPreview').attr('src', event.target.result);
+						}
+						reader.readAsDataURL(file);
+					}
+				});
+			});
 		</script>

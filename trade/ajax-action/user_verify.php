@@ -5,7 +5,14 @@ include $_SERVER['DOCUMENT_ROOT'] . "/etechzn.com/class/getSetClass.php";
 $user_id = $_POST['user_id'];
 $getData = new GetData();
 $balance = $getData->specificItem('tbl_member','mId',$user_id);
+if($_POST['verify']==0){
+    $add_balance= $balance[0]['balance']+5;
 
+}
+else{
+    $add_balance= $balance[0]['balance'];
+
+}
 $data = array(
     'member_name' => $_POST['member_name'],
     'gender' => $_POST['gender'],
@@ -13,10 +20,9 @@ $data = array(
     'nationality' => $_POST['nationality'],
     'city' => $_POST['city'],
     'phone' => $_POST['phone'],
-    'balance' => $balance[0]['balance']+5,
-    'address' => $_POST['address']
-    
-
+    'balance' => $add_balance,
+    'address' => $_POST['address'],
+    'verify '=>1
 );
 
 $update = $getData->table_update('tbl_member',$data,'mId ='.$user_id);
